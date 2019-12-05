@@ -1,0 +1,133 @@
+﻿@page
+@model ChartsDemo.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<script src="~/js/Chart.bundle.min.js"></script>
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Lets take a look at the weather!</p>
+    <h1 class="display-4">Today's weather</h1>
+    <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherforecastList[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherforecastList[0].TemperatureC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeatherforecastList[0].Summary)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.WeatherforecastList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TemperatureC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Summary)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="container">
+    <canvas id="weatherChart" width="500" height="300"></canvas>
+</div>
+
+<script>
+
+    /////////
+    var myAmounts = [];
+    var myCategories = [];
+    var myWeather;
+
+    function showChart() {
+        myAmounts = myWeather.amountList;
+        myCategories = myWeather.categoryList;
+        console.log(myWeather);
+        console.log(myAmounts);
+        console.log(myCategories);
+        let popCanvasName = document.getElementById("weatherChart");
+        let weatherChart = new Chart(popCanvasName, {
+            type: 'bar',
+            data: {
+                labels: myCategories,
+                datasets: [{
+                    label: 'Weather data',
+                    data: myAmounts,
+                    backgroundColor: getRandomColorEachData(myCategories.length),
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    function getChartData() {
+        return fetch('./Index?handler=WeatherforecastChartData',
+            {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw Error('Response Not OK');
+                }
+            })
+            .then(function (text) {
+                try {
+                    return JSON.parse(text);
+                } catch (err) {
+                    throw Error('Method Not Found');
+                }
+            })
+            .then(function (responseJSON) {
+                myWeather = responseJSON;
+                showChart();
+            })
+    }
+
+    var getRandomColor = function() {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function getRandomColorEachData(count) {
+    var data =[];
+    for (var i = 0; i < count; i++) {
+        data.push(getRandomColor());
+    }
+    return data;
+}
+    getChartData();
+</script>
