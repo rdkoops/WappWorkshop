@@ -93,7 +93,7 @@ Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Bro
         ViewData["Title"] = "Home page";
     }
     
-    <script src="~/js/Chart.bundle.min.js"></script>
+    <script src="~/js/Chart.js"></script>
     
     
     <div class="text-center">
