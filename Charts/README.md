@@ -27,6 +27,34 @@ This is the main model, the entity for list of invoices. The second class there 
 
 Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Newtonsoft.JSON > Install
 
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    
+    namespace ChartJSTutorial
+    {
+        public class InvoiceModel
+        {
+            public int InvoiceNumber { get; set; }
+            public double Amount { get; set; }
+            public string CostCategory { get; set; }
+    
+        }
+    
+        public class CategoryChartModel
+        {
+            [JsonProperty(PropertyName = "CategoryList")]
+            public List<string> CategoryList { get; set; }
+    
+            [JsonProperty(PropertyName = "AmountList")]
+            public List<double> AmountList { get; set; }
+    
+        }
+    }
+
+
  
     
  
