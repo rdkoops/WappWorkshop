@@ -14,7 +14,7 @@ Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en st
 
     mkdir ChartsDemo
     cd ChartsDemo
-    dotnet new mvc
+    dotnet new razor
 
 Open de ChartsDemo folder in Visual Studio 2019 Preview
 
