@@ -19,5 +19,14 @@ Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en st
 Open de ChartsDemo folder in Visual Studio 2019 Preview
 
 ### Stap 2 - Download de Chart.js javascript file
-Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Chart.js 
+Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Chart.js > Install
 
+### Stap 3 - Creeer de klas InvoiceModel
+
+This is the main model, the entity for list of invoices. The second class there will be used to provide data to the Chart, is see point E below.
+
+Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Newtonsoft.JSON > Install
+
+ 
+    
+ 
