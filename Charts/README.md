@@ -33,7 +33,7 @@ Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Bro
     using System.Linq;
     using System.Threading.Tasks;
     
-    namespace ChartJSTutorial
+    namespace ChartsDemo.Models
     {
         public class InvoiceModel
         {
@@ -53,8 +53,3 @@ Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Bro
     
         }
     }
-
-
- 
-    
- 
