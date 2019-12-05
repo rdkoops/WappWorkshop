@@ -19,7 +19,8 @@ Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en st
 Open de ChartsDemo folder in Visual Studio 2019 Preview
 
 ### Stap 2 - Download de Chart.js javascript file
-Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Chart.js > Install
+Ga naar https://cdn.jsdelivr.net/npm/chart.js
+Download de file en plaats deze in de wwwroot, js folder.
 
 ### Stap 3 - Creeer de klas InvoiceModel
 
@@ -256,3 +257,14 @@ Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "In
     
         }
     }
+    
+### Stap 7 - Verander de Startup 
+Voeg AddTransient toe. 
+
+      public void ConfigureServices(IServiceCollection services)
+            {
+                // TOEGEVOEGD ----------
+                services.AddTransient<InvoiceService>();
+                //---------------------
+                services.AddRazorPages();
+            }
