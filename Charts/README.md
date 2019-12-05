@@ -1,11 +1,12 @@
 # Workshop Charts
-In deze workshop zullen we charts implementeren in ASP.NET Core MVC Application door ... te gebruiken
+In deze workshop zullen we charts implementeren in ASP.NET Core MVC Application door Chart.js te gebruiken: [https://www.chartjs.org/](https://www.chartjs.org/)
+
 
 ### Vereisten
 
  - Windows 
- - Visual Studio 2019 Preview .NET Core
- - SDK 3.1
+ - Visual Studio 2019 Preview 
+ - .NET Core SDK 3.1
  - Javascript
 
 ### Stap 1 - Creëer een ASP.NET Core 3.1 MVC Project**
@@ -24,6 +25,7 @@ Download de file en plaats deze in de wwwroot, js folder.
 
 ### Stap 3 - Creeer de klas InvoiceModel
 
+Dit is de hoofdklasse, de entiteit met een lijs
 This is the main model, the entity for list of invoices. The second class there will be used to provide data to the Chart, is see point E below.
 
 Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Newtonsoft.JSON > Install
