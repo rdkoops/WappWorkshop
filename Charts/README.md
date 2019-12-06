@@ -206,8 +206,12 @@ Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "In
     
 ### Stap 7 - Verander de Startup 
 
-Voeg de volgende code boven ```services.AddRazorPages();``` binnen de ```ConfigureServices``` functie.
+Voeg de volgende code boven ```services.AddRazorPages()``` binnen de ```ConfigureServices``` functie.
 
 ```
     services.AddTransient<InvoiceService>();
 ```
+
+#### Extra uitleg 
+
+De ```services.AddTransient<>()``` functie zorgt ervoor dat er een nieuwe instantie van wat er tussen de <> staat geleverd wordt aan elke controller en service die hem aanroept. 
