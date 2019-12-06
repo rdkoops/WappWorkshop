@@ -56,6 +56,16 @@ Binnen de hoofdmethode voeg de volgende code toe.
 
 Dit geeft een sort van template voor de data die wij nodig hebben. 
 
+
+```
+public class CategoryChartModel
+    {
+        public List<string> CategoryList { get; set; }
+
+        public List<double> AmountList { get; set; }
+
+    }
+```
     
  ### Stap 4 - Creëer een Service die de data inlaad in Weatherforecast
 We gaan nu een service maken. Dit laad het data van de JSON bestand in de vorm van onze model die wij hebben gemaakt in stap 3.
@@ -66,6 +76,29 @@ Voeg hiernaa een nieuwe klas toe die heet ```JsonFileWeatherService```.
 
 Binnen deze klas wordt er gebruik gemaakt van de ```weather.json``` bestand.  
 *Tip: Hier zou je een database connectie kunnen maken en gebruik maken van een functie in de model om te zetten naar json.**
+
+```
+   public JsonFileWeatherService(IWebHostEnvironment webHostEnvironment)
+        {
+            WebHostEnvironment = webHostEnvironment;
+        }
+        public IWebHostEnvironment WebHostEnvironment { get; }
+        private string JsonFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "weather.json"); }
+        }
+        public IEnumerable<WeatherForecast> GetWeatherforecasts()
+        {
+            using (var jsonFileReader = File.OpenText(JsonFileName))
+            {
+                return JsonSerializer.Deserialize<WeatherForecast[]>(jsonFileReader.ReadToEnd(),
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+            }
+        }
+```
 
 
 ### Stap 5 - Creëer een controller voor routing
