@@ -19,11 +19,17 @@ Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en st
 
 Open de ChartsDemo folder in Visual Studio 2019 Preview
 
-### Stap 2 - Download de Chart.js javascript file
-Ga naar https://cdn.jsdelivr.net/npm/chart.js
-Download de file en plaats deze in de wwwroot, js folder (creeër de folder js als je dit niet al hebt).
+### Stap 2 - Download de Chart.js javascript file & data voor het weer
+Ga naar:  
+https://cdn.jsdelivr.net/npm/chart.js  
+Download de file en plaats deze in de wwwroot, js folder (creëer de folder js als je dit niet al hebt).
 
-### Stap 3 - Creeer de model Weatherforecast
+Maak een ```data``` folder aan in de wwwwroot folder. Hierna download de json data van de git repo en plaat het in dit folder locatie.  
+Ga naar:  
+https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/ChartsDemo/wwwroot/data/weather.json
+
+
+### Stap 3 - Creëer de model Weatherforecast
 
 Maak een folder aan in de project folder die heet ```Models```. 
 Maak daar een een klas die heet ```WeatherForecast```.
@@ -44,17 +50,28 @@ Binnen de hoofdmethode voeg de volgende code toe.
 
 ```
 
-Dit geeft een sort van template voor de data die wij nodig hebben.
+Dit geeft een sort van template voor de data die wij nodig hebben. 
 
     
- ### Stap 4 - Creeer een Service die de data inlaad in Weatherforecast
- We gaan nu een service maken. Dit laad het data van de JSON bestand in de vorm van onze model die wij hebben gemaakt in stap 3.
+ ### Stap 4 - Creëer een Service die de data inlaad in Weatherforecast
+We gaan nu een service maken. Dit laad het data van de JSON bestand in de vorm van onze model die wij hebben gemaakt in stap 3.
 
 Maak een folder aan die het ```Services``` in de project folder.
 
 Voeg hiernaa een nieuwe klas toe die heet ```JsonFileWeatherService```.
 
-Binnen deze klas wordt er gemaakt van 
+Binnen deze klas wordt er gebruik gemaakt van de ```weather.json``` bestand.  
+*Tip: Hier zou je een database connectie kunnen maken en gebruik maken van een functie in de model om te zetten naar json.**
+
+
+### Stap 5 - Creëer een controller voor routing
+Maak een folder aan in de project map die heet ```Controllers```.
+
+Rechter muis klik op de```Controllers``` map en ga naar ```Add > Controller```.
+
+Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecastController```.
+
+
     
     
 ### Stap 5 - Index page - tekent de charts door Javascript te gebruiken
@@ -188,7 +205,6 @@ Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "In
     }
     
 ### Stap 7 - Verander de Startup 
-Voeg AddTransient toe. 
 
 Voeg de volgende code boven ```services.AddRazorPages();``` binnen de ```ConfigureServices``` functie.
 
