@@ -23,16 +23,19 @@ Open de ChartsDemo folder in Visual Studio 2019 Preview
 ### Stap 2 - Download de Chart.js javascript file & data voor het weer
 Ga naar:  
 https://cdn.jsdelivr.net/npm/chart.js  
-Download de file en plaats deze in de wwwroot, js folder (creëer de folder js als je dit niet al hebt).
+Download de file doormiddel van het klikken op de rechtermuisknop en dan op opslaan als. Vervolgens plaats je dit bestand in de wwwroot van je project, js folder (creëer de folder js als je dit niet al hebt). 
 
 Maak een ```data``` folder aan in de wwwwroot folder. Hierna download de json data van de git repo en plaat het in dit folder locatie.  
 Ga naar:  
 https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/ChartsDemo/wwwroot/data/weather.json
 
+je wwwroot ziet er dan als volgt uit:
+
+![wwwroot map](\images\1.jpeg)
 
 ### Stap 3 - Creëer de model Weatherforecast
 
-Maak een folder aan in de project folder die heet ```Models```. 
+Maak een folder aan in de project folder die ```Models``` heet. 
 Maak daar een een klas die heet ```WeatherForecast```.
 
 Dit is de hoofd model, de entiteit met een lijst met ```weatherForecasts```.
