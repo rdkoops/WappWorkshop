@@ -19,6 +19,7 @@ Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en st
 
 Open de ChartsDemo folder in Visual Studio 2019 Preview
 
+
 ### Stap 2 - Download de Chart.js javascript file & data voor het weer
 Ga naar:  
 https://cdn.jsdelivr.net/npm/chart.js  
@@ -72,139 +73,7 @@ Rechter muis klik op de```Controllers``` map en ga naar ```Add > Controller```.
 Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecastController```.
 
 
-    
-    
-### Stap 5 - Index page - tekent de charts door Javascript te gebruiken
-
-```
-    <div class="container">
-        <canvas id="invChart" width="500" height="300"></canvas>
-    </div>
-```
-
-```    
-    <script>
-        var myAmounts = [];
-        var myCategories = [];
-        var myInvoices;
-    
-        function showChart() {
-            myAmounts = myInvoices.AmountList;
-            myCategories = myInvoices.CategoryList;
-            console.log(myAmounts);
-            console.log(myCategories);
-            let popCanvasName = document.getElementById("invChart");
-            let barChartName = new Chart(popCanvasName, {
-              type: 'bar',
-              data: {
-                labels: myCategories,
-                  datasets: [{
-                      label: 'Invoice data',
-                      data: myAmounts,
-                      backgroundColor: [
-                          'rgba(255, 99, 132, 0.6)',
-                          'rgba(54, 162, 235, 0.6)',
-                          'rgba(255, 206, 86, 0.6)',
-                          'rgba(75, 192, 192, 0.6)',
-                          'rgba(153, 102, 255, 0.6)',
-                      ]
-                  }]
-                },
-                options: {
-                    responsive: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
-        }
-        function getChartData() {
-            return fetch('./Index?handler=InvoiceChartData',
-                {
-                    method: 'get',
-                    headers: {
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    }
-                })
-                .then(function (response) {
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw Error('Response Not OK');
-                    }
-                })
-                .then(function (text) {
-                    try {
-                        return JSON.parse(text);
-                    } catch (err) {
-                        throw Error('Method Not Found');
-                    }
-                })
-                .then(function (responseJSON) {
-                    myInvoices = responseJSON;
-                    showChart();
-                })
-        }
-        getChartData();
-    </script>
-```
-
-
-### Stap 6 - Code voor backend Index page
-OnGet method - loads the invoice list to be displayed in the page
-OnGetInvoiceChartData method - is the backend for the fetch at point D in the JavaScript Code. It will provide JSON data in order to be displayed with the list.
-
-Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "Index"
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using ChartsDemo.Models;
-    using ChartsDemo.Services;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
-    
-    namespace ChartsDemo.Views.Home
-    {
-        public class IndexModel : PageModel
-        {
-            private readonly InvoiceService _invoiceService;
-    
-            public List<InvoiceModel> InvoiceList;
-            public IndexModel(InvoiceService invoiceService)
-            {
-                _invoiceService = invoiceService;
-            }
-            public void OnGet()
-            {
-                InvoiceList = _invoiceService.GetInvoices();
-            }
-    
-            public JsonResult OnGetInvoiceChartData()
-            {
-                InvoiceList = _invoiceService.GetInvoices();
-                var invoiceChart = new CategoryChartModel();
-                invoiceChart.AmountList = new List<double>();
-                invoiceChart.CategoryList = new List<string>();
-    
-                foreach (var inv in InvoiceList)
-                {
-                    invoiceChart.AmountList.Add(inv.Amount);
-                    invoiceChart.CategoryList.Add(inv.CostCategory);
-                }
-    
-                return new JsonResult(invoiceChart);
-            }
-    
-        }
-    }
-    
-### Stap 7 - Verander de Startup 
+### Stap 6 - Verander de Startup 
 
 Voeg de volgende code boven ```services.AddRazorPages()``` binnen de ```ConfigureServices``` functie.
 
@@ -215,3 +84,199 @@ Voeg de volgende code boven ```services.AddRazorPages()``` binnen de ```Configur
 #### Extra uitleg 
 
 De ```services.AddTransient<>()``` functie zorgt ervoor dat er een nieuwe instantie van wat er tussen de <> staat geleverd wordt aan elke controller en service die hem aanroept. 
+
+
+### Stap 7 - Code voor backend Index page
+Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "Index"
+(als er nog geen Index.cshtml.cs file is) 
+Open de Index.cshtml.cs file en vervang alle code met de onderstaande code:
+
+```
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ChartsDemo.Models;
+using ChartsDemo.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+
+namespace ChartsDemo.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly ILogger<IndexModel> _logger;
+        public JsonFileWeatherService WeatherService;
+        public List<Weatherforecast> WeatherforecastList { get; private set; }
+        public IndexModel(ILogger<IndexModel> logger, JsonFileWeatherService weatherService)
+        {
+            _logger = logger;
+            WeatherService = weatherService;
+        }
+
+        public void OnGet()
+        {
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+        }
+
+        public JsonResult OnGetWeatherforecastChartData()
+        {
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+            Console.WriteLine($"LIJST: {WeatherforecastList}");
+            var weatherChart = new CategoryChartModel();
+            weatherChart.AmountList = new List<double>();
+            weatherChart.CategoryList = new List<string>();
+
+            foreach (var weather in WeatherforecastList)
+            {
+                weatherChart.AmountList.Add(weather.TemperatureC);
+                weatherChart.CategoryList.Add(weather.Day);
+            }
+
+            return new JsonResult(weatherChart);
+        }
+
+    }
+}
+```
+
+De ```OnGet``` method - laad de invoice list zodat deze kan worden weergegeven op de pagina.
+loads the invoice list to be displayed in the page
+De ```OnGetWeatherforecastChartData``` methode is de backend voor de ```fetch``` functie in de Javascript Code. Het zal de JSON data leveren zodat het kan worden weergegeven op de pagina.
+
+
+
+### Stap 8 - Index page - Teken de charts door Javascript te gebruiken
+
+#### Stap 8.1
+Open de ```Index.cshtml``` file, en vervang de inhoudt van de file met het volgende.:
+    @page
+    @model ChartsDemo.Pages.IndexModel
+    @{
+        ViewData["Title"] = "Home page";
+    }
+    
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Lets take a look at the weather!</p>
+        <h1 class="display-4">This month's weather</h1>
+    </div>
+
+Dit zal een erg eenvoudige html pagina renderen met de heading "Welcome..."
+De applicatie zou op dit punt moeten werken. Je kan de applicatie runnen door naar het **Debug** menu te gaan en **Start Without Debugging** of door **Ctrl-F5 **. De applicatie zou nou moeten openen in je default web browser
+Het is belangrijk om de ```@page``` directive bovenaan de .cshtml te definieren. De @page directive verteld Razor dat deze .cshtml file een Razor Page representeert.
+De ```@page``` directive wordt gevolgd door een ```@model``` directive. Dit identificeert de corresponderende C# model klasse , die gelokaliseerd is in dezelfde folder van de .cshtml pagina zelf.
+Met een ```@{}``` blok wordt server-side code toegevoegd. 
+
+#### Stap 8.2
+We voegen Chart.js toe door de script tag toe te voegen aan onze razor page.
+
+```<script src="~/js/Chart.bundle.min.js"></script>```
+
+#### Stap 8.3
+
+Hierna hebben we een canvas nodig voor onze pagina. 
+
+``` 
+<div class="container">
+    <canvas id="weatherChart" width="500" height="300"></canvas>
+</div> 
+```
+
+#### Stap 8.4
+
+Nu kunnen we een chart creeeren. We voegen een script toe aan onze pagina. 
+
+Om  chart te creeren, moeten we de ```Chart``` class instantieren. Om dit te doen, moeten we het canvas doorgeven in de node.
+```let popCanvasName = document.getElementById("weatherChart");  ```
+
+Als je het element hebt, kan je zelf een pre-gedefinieerd chart-type of een eigen instantieren.
+
+Het onderstaande geeft alle code weer om een bar chart te instantieren. 
+
+```
+<script>
+    // Data
+    var myAmounts = [];
+    var myCategories = [];
+    var myWeather;
+
+    function showChart() {
+        myAmounts = myWeather.amountList;
+        myCategories = myWeather.categoryList;
+        console.log(myWeather);
+        console.log(myAmounts);
+        console.log(myCategories);
+        let popCanvasName = document.getElementById("weatherChart");
+        let weatherChart = new Chart(popCanvasName, {
+            type: 'bar',
+            data: {
+                labels: myCategories,
+                datasets: [{
+                    label: 'Weather data',
+                    data: myAmounts,
+                    backgroundColor: getRandomColorEachData(myCategories.length),
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    // Get data from API endpoint
+    function getChartData() {
+        return fetch('./Index?handler=WeatherforecastChartData',
+            {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw Error('Response Not OK');
+                }
+            })
+            .then(function (text) {
+                try {
+                    return JSON.parse(text);
+                } catch (err) {
+                    throw Error('Method Not Found');
+                }
+            })
+            .then(function (responseJSON) {
+                myWeather = responseJSON;
+                showChart();
+            })
+    }
+
+    // Color the chart
+    var getRandomColor = function() {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function getRandomColorEachData(count) {
+    var data =[];
+    for (var i = 0; i < count; i++) {
+        data.push(getRandomColor());
+    }
+    return data;
+}
+    getChartData();
+</script>
+```
+    
