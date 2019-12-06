@@ -1,122 +1,44 @@
 [
   {
-    "date": "2019-12-06T12:14:50.8251306+01:00",
-    "temperatureC": 16,
-    "temperatureF": 60,
-    "summary": "Hot"
+    "date": "2019-12-07T11:36:18.2987726+01:00",
+    "temperatureC": -20,
+    "temperatureF": -3,
+    "summary": "Chilly"
   },
   {
-    "date": "2019-12-07T12:14:50.8302493+01:00",
-    "temperatureC": -12,
-    "temperatureF": 11,
-    "summary": "Warm"
-  },
-  {
-    "date": "2019-12-08T12:14:50.830257+01:00",
-    "temperatureC": 42,
-    "temperatureF": 107,
+    "date": "2019-12-08T11:36:18.3042854+01:00",
+    "temperatureC": 38,
+    "temperatureF": 100,
     "summary": "Freezing"
   },
   {
-    "date": "2019-12-09T12:14:50.8302578+01:00",
-    "temperatureC": 20,
-    "temperatureF": 67,
-    "summary": "Mild"
-  },
-  {
-    "date": "2019-12-10T12:14:50.8302582+01:00",
-    "temperatureC": -15,
-    "temperatureF": 6,
-    "summary": "Cool"
-  },
-  {
-    "date": "2019-12-11T12:14:50.8302587+01:00",
-    "temperatureC": 33,
-    "temperatureF": 91,
-    "summary": "Mild"
-  },
-  {
-    "date": "2019-12-12T12:14:50.8302592+01:00",
-    "temperatureC": 52,
-    "temperatureF": 125,
-    "summary": "Hot"
-  },
-  {
-    "date": "2019-12-13T12:14:50.8302596+01:00",
-    "temperatureC": -4,
-    "temperatureF": 25,
-    "summary": "Bracing"
-  },
-  {
-    "date": "2019-12-14T12:14:50.8302601+01:00",
-    "temperatureC": 48,
-    "temperatureF": 118,
-    "summary": "Warm"
-  },
-  {
-    "date": "2019-12-15T12:14:50.8302605+01:00",
-    "temperatureC": 49,
-    "temperatureF": 120,
-    "summary": "Mild"
-  },
-  {
-    "date": "2019-12-16T12:14:50.830261+01:00",
+    "date": "2019-12-09T11:36:18.3043399+01:00",
     "temperatureC": -5,
     "temperatureF": 24,
-    "summary": "Cool"
+    "summary": "Freezing"
   },
   {
-    "date": "2019-12-17T12:14:50.8302615+01:00",
+    "date": "2019-12-10T11:36:18.3043418+01:00",
     "temperatureC": 44,
     "temperatureF": 111,
     "summary": "Chilly"
   },
   {
-    "date": "2019-12-18T12:14:50.830262+01:00",
-    "temperatureC": -2,
-    "temperatureF": 29,
-    "summary": "Warm"
-  },
-  {
-    "date": "2019-12-19T12:14:50.8302624+01:00",
-    "temperatureC": 7,
-    "temperatureF": 44,
-    "summary": "Mild"
-  },
-  {
-    "date": "2019-12-20T12:14:50.8302629+01:00",
-    "temperatureC": -5,
-    "temperatureF": 24,
-    "summary": "Chilly"
-  },
-  {
-    "date": "2019-12-21T12:14:50.8302633+01:00",
-    "temperatureC": 8,
-    "temperatureF": 46,
+    "date": "2019-12-11T11:36:18.3043421+01:00",
+    "temperatureC": -9,
+    "temperatureF": 16,
     "summary": "Scorching"
   },
   {
-    "date": "2019-12-22T12:14:50.8302638+01:00",
-    "temperatureC": -17,
-    "temperatureF": 2,
-    "summary": "Warm"
+    "date": "2019-12-12T11:36:18.3043424+01:00",
+    "temperatureC": 22,
+    "temperatureF": 71,
+    "summary": "Chilly"
   },
   {
-    "date": "2019-12-23T12:14:50.8302643+01:00",
+    "date": "2019-12-13T11:36:18.3043428+01:00",
     "temperatureC": 4,
     "temperatureF": 39,
     "summary": "Mild"
-  },
-  {
-    "date": "2019-12-24T12:14:50.8302648+01:00",
-    "temperatureC": -7,
-    "temperatureF": 20,
-    "summary": "Warm"
-  },
-  {
-    "date": "2019-12-25T12:14:50.8302652+01:00",
-    "temperatureC": 22,
-    "temperatureF": 71,
-    "summary": "Balmy"
   }
 ]
