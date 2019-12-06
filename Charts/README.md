@@ -21,12 +21,20 @@ Open de ChartsDemo folder in Visual Studio 2019 Preview
 
 ### Stap 2 - Download de Chart.js javascript file
 Ga naar https://cdn.jsdelivr.net/npm/chart.js
-Download de file en plaats deze in de wwwroot, js folder.
+Download de file en plaats deze in de wwwroot, js folder (creeër de folder js als je dit niet al hebt).
 
-### Stap 3 - Creeer de klas InvoiceModel
+### Stap 3 - Creeer de model Weatherforecast
 
-Dit is de hoofdklasse, de entiteit met een lijs
-This is the main model, the entity for list of invoices. The second class there will be used to provide data to the Chart, is see point E below.
+Maak een folder aan in de project folder die heet ```Models```. 
+Maak daar een een klas die heet ```Weatherforecast```.
+
+
+
+Dit is de hoofdklasse, de entiteit met een lijst met ```weatherforecasts```.
+
+
+This is the main model, the entity for list of invoices. 
+The second class there will be used to provide data to the Chart, is see point E below.
 
 Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Newtonsoft.JSON > Install
 
