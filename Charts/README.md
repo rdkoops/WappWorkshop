@@ -85,9 +85,84 @@ De tweede klasse ```CategoryChartModel``` zal worden gebruikt om data te leveren
         }
     }
     
-### Stap 6 - Index page - Teken de charts door Javascript te gebruiken
+### Stap 6 - Verander de Startup 
+Voeg AddTransient toe. 
 
-#### Stap 6.1
+```
+// This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddControllers();
+            services.AddTransient<JsonFileWeatherService>();
+        }
+
+```
+
+### Stap 7 - Code voor backend Index page
+Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "Index"
+(als er nog geen Index.cshtml.cs file is) 
+Open de Index.cshtml.cs file en vervang alle code met de onderstaande code:
+
+```
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ChartsDemo.Models;
+using ChartsDemo.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+
+namespace ChartsDemo.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly ILogger<IndexModel> _logger;
+        public JsonFileWeatherService WeatherService;
+        public List<Weatherforecast> WeatherforecastList { get; private set; }
+        public IndexModel(ILogger<IndexModel> logger, JsonFileWeatherService weatherService)
+        {
+            _logger = logger;
+            WeatherService = weatherService;
+        }
+
+        public void OnGet()
+        {
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+        }
+
+        public JsonResult OnGetWeatherforecastChartData()
+        {
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+            Console.WriteLine($"LIJST: {WeatherforecastList}");
+            var weatherChart = new CategoryChartModel();
+            weatherChart.AmountList = new List<double>();
+            weatherChart.CategoryList = new List<string>();
+
+            foreach (var weather in WeatherforecastList)
+            {
+                weatherChart.AmountList.Add(weather.TemperatureC);
+                weatherChart.CategoryList.Add(weather.Day);
+            }
+
+            return new JsonResult(weatherChart);
+        }
+
+    }
+}
+```
+
+De ```OnGet``` method - laad de invoice list zodat deze kan worden weergegeven op de pagina.
+loads the invoice list to be displayed in the page
+De ```OnGetWeatherforecastChartData``` methode is de backend voor de ```fetch``` functie in de Javascript Code. Het zal de JSON data leveren zodat het kan worden weergegeven op de pagina.
+
+
+
+### Stap 8 - Index page - Teken de charts door Javascript te gebruiken
+
+#### Stap 8.1
 Open de ```Index.cshtml``` file, en vervang de inhoudt van de file met het volgende.:
     @page
     @model ChartsDemo.Pages.IndexModel
@@ -107,12 +182,12 @@ Het is belangrijk om de ```@page``` directive bovenaan de .cshtml te definieren.
 De ```@page``` directive wordt gevolgd door een ```@model``` directive. Dit identificeert de corresponderende C# model klasse , die gelokaliseerd is in dezelfde folder van de .cshtml pagina zelf.
 Met een ```@{}``` blok wordt server-side code toegevoegd. 
 
-#### Stap 6.2
+#### Stap 8.2
 We voegen Chart.js toe door de script tag toe te voegen aan onze razor page.
 
 ```<script src="~/js/Chart.bundle.min.js"></script>```
 
-#### Stap 6.3
+#### Stap 8.3
 
 Hierna hebben we een canvas nodig voor onze pagina. 
 
@@ -122,7 +197,7 @@ Hierna hebben we een canvas nodig voor onze pagina.
 </div> 
 ```
 
-#### Stap 6.4
+#### Stap 8.4
 
 Nu kunnen we een chart creeeren. We voegen een script toe aan onze pagina. 
 
@@ -216,77 +291,4 @@ Het onderstaande geeft alle code weer om een bar chart te instantieren.
 }
     getChartData();
 </script>
-```
-
-### Stap 7 - Code voor backend Index page
-Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "Index"
-(als er nog geen Index.cshtml.cs file is) 
-Open de Index.cshtml.cs file en vervang alle code met de onderstaande code:
-
-```
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ChartsDemo.Models;
-using ChartsDemo.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-
-namespace ChartsDemo.Pages
-{
-    public class IndexModel : PageModel
-    {
-        private readonly ILogger<IndexModel> _logger;
-        public JsonFileWeatherService WeatherService;
-        public List<Weatherforecast> WeatherforecastList { get; private set; }
-        public IndexModel(ILogger<IndexModel> logger, JsonFileWeatherService weatherService)
-        {
-            _logger = logger;
-            WeatherService = weatherService;
-        }
-
-        public void OnGet()
-        {
-            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
-        }
-
-        public JsonResult OnGetWeatherforecastChartData()
-        {
-            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
-            Console.WriteLine($"LIJST: {WeatherforecastList}");
-            var weatherChart = new CategoryChartModel();
-            weatherChart.AmountList = new List<double>();
-            weatherChart.CategoryList = new List<string>();
-
-            foreach (var weather in WeatherforecastList)
-            {
-                weatherChart.AmountList.Add(weather.TemperatureC);
-                weatherChart.CategoryList.Add(weather.Day);
-            }
-
-            return new JsonResult(weatherChart);
-        }
-
-    }
-}
-```
-
-De ```OnGet``` method - laad de invoice list zodat deze kan worden weergegeven op de pagina.
-loads the invoice list to be displayed in the page
-De ```OnGetWeatherforecastChartData``` methode is de backend voor de ```fetch``` functie in de Javascript Code. Het zal de JSON data leveren zodat het kan worden weergegeven op de pagina.
-
-### Stap 8 - Verander de Startup 
-Voeg AddTransient toe. 
-
-```
-// This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
-            services.AddControllers();
-            services.AddTransient<JsonFileWeatherService>();
-        }
-
 ```
