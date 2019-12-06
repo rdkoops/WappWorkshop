@@ -26,130 +26,47 @@ Download de file en plaats deze in de wwwroot, js folder (creeër de folder js a
 ### Stap 3 - Creeer de model Weatherforecast
 
 Maak een folder aan in de project folder die heet ```Models```. 
-Maak daar een een klas die heet ```Weatherforecast```.
+Maak daar een een klas die heet ```WeatherForecast```.
 
+Dit is de hoofd model, de entiteit met een lijst met ```weatherForecasts```.
 
+Binnen de hoofdmethode voeg de volgende code toe. 
+```
+        public DateTime Date { get; set; }
 
-Dit is de hoofdklasse, de entiteit met een lijst met ```weatherforecasts```.
+        public string Day => Date.ToString("dddd");
 
+        public int TemperatureC { get; set; }
 
-This is the main model, the entity for list of invoices. 
-The second class there will be used to provide data to the Chart, is see point E below.
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
-Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Browse > Newtonsoft.JSON > Install
+        public string Summary { get; set; }        
 
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+```
+
+Dit geeft een sort van template voor de data die wij nodig hebben.
+
     
-    namespace ChartsDemo.Models
-    {
-        public class InvoiceModel
-        {
-            public int InvoiceNumber { get; set; }
-            public double Amount { get; set; }
-            public string CostCategory { get; set; }
+ ### Stap 4 - Creeer een Service die de data inlaad in Weatherforecast
+ We gaan nu een service maken. Dit laad het data van de JSON bestand in de vorm van onze model die wij hebben gemaakt in stap 3.
+
+Maak een folder aan die het ```Services``` in de project folder.
+
+Voeg hiernaa een nieuwe klas toe die heet ```JsonFileWeatherService```.
+
+Binnen deze klas wordt er gemaakt van 
     
-        }
-    
-        public class CategoryChartModel
-        {
-            [JsonProperty(PropertyName = "CategoryList")]
-            public List<string> CategoryList { get; set; }
-    
-            [JsonProperty(PropertyName = "AmountList")]
-            public List<double> AmountList { get; set; }
-    
-        }
-    }
-    
- ### Stap 4 - Creeer een Service die de data inlaad in InvoiceModel
- We laden hier handmatig data in een list.
- 
-    using ChartsDemo.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    
-    namespace ChartsDemo.Services
-    {
-        public class InvoiceService
-        {
-            public List<InvoiceModel> GetInvoices()
-            {
-                return new List<InvoiceModel>()
-                {
-                    new InvoiceModel() {InvoiceNumber = 1, Amount = 10, CostCategory = "Utilities"},
-                    new InvoiceModel() {InvoiceNumber = 2, Amount = 50, CostCategory = "Telephone"},
-                    new InvoiceModel() {InvoiceNumber = 3, Amount = 30, CostCategory = "Services"},
-                    new InvoiceModel() {InvoiceNumber = 4, Amount = 40, CostCategory = "Consultancy"},
-                    new InvoiceModel() {InvoiceNumber = 5, Amount = 60, CostCategory = "Raw materials"}
-                };
-            }
-        }
-    }
     
 ### Stap 5 - Index page - tekent de charts door Javascript te gebruiken
 
-    @page
-    @model ChartsDemo.Views.Home.IndexModel
-    @{
-    }
-    
-    @{
-        ViewData["Title"] = "Home page";
-    }
-    
-    <script src="~/js/Chart.js"></script>
-    
-    
-    <div class="text-center">
-        <h1 class="display-4">Invoice List</h1>
-    </div>
-    
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.InvoiceList[0].InvoiceNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InvoiceList[0].Amount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InvoiceList[0].CostCategory)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.InvoiceList)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InvoiceNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CostCategory)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    
+```
     <div class="container">
         <canvas id="invChart" width="500" height="300"></canvas>
     </div>
-    
+```
+
+```    
     <script>
-    
-        /////////
         var myAmounts = [];
         var myCategories = [];
         var myInvoices;
@@ -217,6 +134,8 @@ Ga naar tools > NuGet Package Manager > Manage NuGet Packages for Solution > Bro
         }
         getChartData();
     </script>
+```
+
 
 ### Stap 6 - Code voor backend Index page
 OnGet method - loads the invoice list to be displayed in the page
@@ -271,10 +190,8 @@ Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "In
 ### Stap 7 - Verander de Startup 
 Voeg AddTransient toe. 
 
-      public void ConfigureServices(IServiceCollection services)
-            {
-                // TOEGEVOEGD ----------
-                services.AddTransient<InvoiceService>();
-                //---------------------
-                services.AddRazorPages();
-            }
+Voeg de volgende code boven ```services.AddRazorPages();``` binnen de ```ConfigureServices``` functie.
+
+```
+    services.AddTransient<InvoiceService>();
+```
