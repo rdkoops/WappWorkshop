@@ -36,7 +36,7 @@ https://github.com/Kiiwuu/WappWorkshop
 
 In de Visual Studio Preview solution explorer ziet je wwwroot mar er dan als volgt uit:
 
-![wwwroot map](\images\1.jpg)
+![wwwroot map](https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/images/1.JPG)
 
 ### Stap 3 - Creëer het model Weatherforecast en het model CategoryChart
 
@@ -44,7 +44,7 @@ Maak een folder aan in de project folder die ```Models``` heet.
 Maak daar een een klas die heet ```WeatherForecast```.
 
 Je structuur ziet er dan als volgt uit:
-![wwwroot map](\images\2.jpg)
+![wwwroot map](https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/images/2.JPG)
 
 Dit is het hoofd model. Het is een entiteit met een lijst met ```weatherForecasts```.
 
@@ -84,7 +84,7 @@ Maak een folder in het project aan die het ```Services``` heet.
 Voeg hiernaa een nieuwe klas toe die heet ```JsonFileWeatherService```.
 
 Je file structuur zou er als volgt uit moeten zien:
-![wwwroot map](\images\3.jpg)
+![wwwroot map](https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/images/3.JPG)
 
 Binnen deze class wordt er gebruik gemaakt van het ```weather.json``` bestand.  
 
@@ -221,7 +221,7 @@ We voegen Chart.js toe door de script tag toe te voegen aan onze razor page.
 ```<script src="~/js/Chart.bundle.min.js"></script>```
 
 Je page ziet er dan als volgt uit:
-![wwwroot map](\images\4.jpg)
+![wwwroot map](https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/images/4.JPG)
 
 #### Stap 8.3
 
