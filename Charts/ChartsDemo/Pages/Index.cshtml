@@ -25,16 +25,13 @@
     function showChart() {
         myAmounts = myWeather.amountList;
         myCategories = myWeather.categoryList;
-        console.log(myWeather);
-        console.log(myAmounts);
-        console.log(myCategories);
         let popCanvasName = document.getElementById("weatherChart");
         let weatherChart = new Chart(popCanvasName, {
             type: 'bar',
             data: {
                 labels: myCategories,
                 datasets: [{
-                    label: 'Weather data',
+                    label: 'temprature data',
                     data: myAmounts,
                     backgroundColor: getRandomColorEachData(myCategories.length),
                 }]

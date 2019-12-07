@@ -12,12 +12,10 @@ namespace ChartsDemo.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         public JsonFileWeatherService WeatherService;
         public List<Weatherforecast> WeatherforecastList { get; private set; }
-        public IndexModel(ILogger<IndexModel> logger, JsonFileWeatherService weatherService)
+        public IndexModel(JsonFileWeatherService weatherService)
         {
-            _logger = logger;
             WeatherService = weatherService;
         }
 
@@ -30,7 +28,7 @@ namespace ChartsDemo.Pages
         {
             WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
             Console.WriteLine($"LIJST: {WeatherforecastList}");
-            var weatherChart = new CategoryChartModel();
+            var weatherChart = new CategoryChart();
             weatherChart.AmountList = new List<double>();
             weatherChart.CategoryList = new List<string>();
 

@@ -20,12 +20,4 @@ namespace ChartsDemo.Models
 
         public override string ToString() => JsonSerializer.Serialize<Weatherforecast>(this);
     }
-
-    public class CategoryChartModel
-    {
-        public List<string> CategoryList { get; set; }
-
-        public List<double> AmountList { get; set; }
-
-    }
 }

@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ramonkoops\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {}
+    "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ramonkoops\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {
+    "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ramonkoops\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
+        "projectUniqueName": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
         "projectName": "ChartsDemo",
-        "projectPath": "C:\\Users\\ramonkoops\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
-        "packagesPath": "C:\\Users\\ramonkoops\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ramonkoops\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\obj\\",
+        "projectPath": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
+        "packagesPath": "C:\\Users\\nickf\\.nuget\\packages\\",
+        "outputPath": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ramonkoops\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nickf\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -70,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview3-014645\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview2-014569\\RuntimeIdentifierGraph.json"
         }
       }
     }

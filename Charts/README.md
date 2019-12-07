@@ -25,26 +25,31 @@ Open de ChartsDemo folder in Visual Studio 2019 Preview
 
 ### Stap 2 - Download de Chart.js javascript file & data voor het weer
 Ga naar:  
-https://cdn.jsdelivr.net/npm/chart.js  
-Download de file doormiddel van het klikken op de rechtermuisknop en dan op opslaan als (kies hierbij de gewenste locatie om op te slaan). Vervolgens plaats je dit bestand in de wwwroot van je project, js folder (creëer de folder js als je dit niet al hebt). 
+https://cdn.jsdelivr.net/npm/chart.js 
+Download de file doormiddel van het klikken op de rechtermuisknop. 
+**Zorg dat het bestand ```Chart.bundle.min.js``` heet!**
+Dan op opslaan als (kies hierbij de gewenste locatie om op te slaan). Vervolgens plaats je dit bestand in de wwwroot van je project, in de js folder (creëer de folder js als je dit niet al hebt). 
 
-Maak een ```data``` folder aan in de wwwwroot folder. Hierna download de json data van de git repo en plaat het in dit folder locatie.  
+Maak een ```data``` folder aan in de wwwwroot folder. Hierna download of clone je de repository van github. Als je de map hebt uitgepakt zie je in de hoofdmap een json file staan genaamd weather.json. Plaats deze in de data folder die je net aangemaakt hebt.  
 Ga naar:  
-https://github.com/Kiiwuu/WappWorkshop/blob/master/Charts/ChartsDemo/wwwroot/data/weather.json
+https://github.com/Kiiwuu/WappWorkshop
 
-je wwwroot ziet er dan als volgt uit:
+In de Visual Studio Preview solution explorer ziet je wwwroot mar er dan als volgt uit:
 
-![wwwroot map](\images\1.jpeg)
+![wwwroot map](\images\1.jpg)
 
-### Stap 3 - Creëer de model Weatherforecast
+### Stap 3 - Creëer het model Weatherforecast en het model CategoryChart
 
 Maak een folder aan in de project folder die ```Models``` heet. 
 Maak daar een een klas die heet ```WeatherForecast```.
 
-Dit is de hoofd model, de entiteit met een lijst met ```weatherForecasts```.
+Je structuur ziet er dan als volgt uit:
+![wwwroot map](\images\2.jpg)
 
-Binnen de hoofdmethode voeg de volgende code toe. 
-```
+Dit is het hoofd model. Het is een entiteit met een lijst met ```weatherForecasts```.
+
+Voeg binnen de class ```weatherForecasts``` onderstaande variabele toe: 
+```csharp
         public DateTime Date { get; set; }
 
         public string Day => Date.ToString("dddd");
@@ -57,11 +62,12 @@ Binnen de hoofdmethode voeg de volgende code toe.
 
 ```
 
-Dit geeft een sort van template voor de data die wij nodig hebben. 
+Dit geeft een template voor de data die wij nodig gaan hebben. 
 
+Maak vervolgens in dezelfde map (```Models```) nog een class aan die ```CategoryChart``` heet. In deze class slaan wij de gegevens die wij willen weergeven in een chart op in een array. Voor nu weergeven wij alleen een chart van de tempratuur per dag. De class ```CategoryChart``` ziet er dan als volgt uit:
 
-```
-public class CategoryChartModel
+```csharp
+public class CategoryChart
     {
         public List<string> CategoryList { get; set; }
 
@@ -71,17 +77,25 @@ public class CategoryChartModel
 ```
     
  ### Stap 4 - Creëer een Service die de data inlaad in Weatherforecast
-We gaan nu een service maken. Dit laad het data van de JSON bestand in de vorm van onze model die wij hebben gemaakt in stap 3.
+We gaan nu een service maken. Deze laad de data van het JSON bestand in de vorm van het model die wij hebben gemaakt in stap 3.
 
-Maak een folder aan die het ```Services``` in de project folder.
+Maak een folder in het project aan die het ```Services``` heet.
 
 Voeg hiernaa een nieuwe klas toe die heet ```JsonFileWeatherService```.
 
-Binnen deze klas wordt er gebruik gemaakt van de ```weather.json``` bestand.  
-*Tip: Hier zou je een database connectie kunnen maken en gebruik maken van een functie in de model om te zetten naar json.**
+Je file structuur zou er als volgt uit moeten zien:
+![wwwroot map](\images\3.jpg)
 
-```
-   public JsonFileWeatherService(IWebHostEnvironment webHostEnvironment)
+Binnen deze class wordt er gebruik gemaakt van het ```weather.json``` bestand.  
+
+*Tip: Hier zou je een database connectie kunnen maken en gebruik kunnen maken van een functie om de data om te zetten in een json file.**
+
+Voeg vervolgens onderstaande code toe:
+
+```csharp
+    public class JsonFileWeatherService
+    {
+        public JsonFileWeatherService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
@@ -101,69 +115,63 @@ Binnen deze klas wordt er gebruik gemaakt van de ```weather.json``` bestand.
                     });
             }
         }
+    }
 ```
 
+In deze functie wordt doormiddel van de ```JsonSerializer.Deserialize<WeatherForecast[]>``` het json bestand omgezet in een array van het ```WeatherForecast``` model. In de ```webHostEnvironment``` variabele zit de data opgeslagen die betrekking heeft op het web hosting process. 
 
-### Stap 5 - Creëer een controller voor routing
-Maak een folder aan in de project map die heet ```Controllers```.
+Waarschijnlijk moet je eerst nog alles importeren. 
+**Vergeet dit niet!**
 
-Rechter muis klik op de```Controllers``` map en ga naar ```Add > Controller```.
+### Stap 5 - Verander de Startup 
 
-Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecastController```.
-
-
-### Stap 6 - Verander de Startup 
+Ga naar ```Startup.cs```.
 
 Voeg de volgende code boven ```services.AddRazorPages()``` binnen de ```ConfigureServices``` functie.
 
+```csharp
+    services.AddTransient<JsonFileWeatherService>();
 ```
-    services.AddTransient<InvoiceService>();
-```
-
-#### Extra uitleg 
 
 De ```services.AddTransient<>()``` functie zorgt ervoor dat er een nieuwe instantie van wat er tussen de <> staat geleverd wordt aan elke controller en service die hem aanroept. 
 
 
+### Stap 6 - Creëer een controller voor routing
+
+Maak een folder aan in de project map die heet ```Controllers```.
+
+Rechter muis klik op de map ```Controllers``` en ga naar ```Add > Controller``` (bovenste optie).
+
+Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecastController```.
+
+*Het kan zijn dat je een pop-up krijgt van waar je hem wilt opslaan. Het pad is als het goed is al ingevuld, je hoeft dan alleen op opslaan te klikken. Hierna krijg je waarschijnlijk een optie om het project te herladen. Kies hier voor de optie 'Reload'. Als je nu naar de map ```Controllers``` gaat zie je dat de controller is toegevoegd.*  
+
 ### Stap 7 - Code voor backend Index page
-Voeg Razor Pages toe via folder Home > Add > New > Razor Page > bestandsnaam "Index"
-(als er nog geen Index.cshtml.cs file is) 
-Open de Index.cshtml.cs file en vervang alle code met de onderstaande code:
 
-```
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ChartsDemo.Models;
-using ChartsDemo.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+Ga naar de map ```Pages``` en druk op het pijltje naast de ```index.cshtml```. Er verschijnt nu de ```Index.cshtml.cs``` class, dit is de code achter de ```index.cshtml``` html pagina.   
 
-namespace ChartsDemo.Pages
-{
+Open de ```Index.cshtml.cs``` file en vervang alle code met de onderstaande code:
+
+```csharp
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         public JsonFileWeatherService WeatherService;
-        public List<Weatherforecast> WeatherforecastList { get; private set; }
-        public IndexModel(ILogger<IndexModel> logger, JsonFileWeatherService weatherService)
+        public List<WeatherForecast> WeatherforecastList { get; private set; }
+        public IndexModel(JsonFileWeatherService weatherService)
         {
-            _logger = logger;
             WeatherService = weatherService;
         }
 
         public void OnGet()
         {
-            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<WeatherForecast>();
         }
 
         public JsonResult OnGetWeatherforecastChartData()
         {
-            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<WeatherForecast>();
             Console.WriteLine($"LIJST: {WeatherforecastList}");
-            var weatherChart = new CategoryChartModel();
+            var weatherChart = new CategoryChart();
             weatherChart.AmountList = new List<double>();
             weatherChart.CategoryList = new List<string>();
 
@@ -175,23 +183,21 @@ namespace ChartsDemo.Pages
 
             return new JsonResult(weatherChart);
         }
-
-    }
-}
 ```
 
-De ```OnGet``` method - laad de invoice list zodat deze kan worden weergegeven op de pagina.
-loads the invoice list to be displayed in the page
+De ```OnGet``` method laad de Weatherforecast list zodat deze kan worden weergegeven op de pagina.
 De ```OnGetWeatherforecastChartData``` methode is de backend voor de ```fetch``` functie in de Javascript Code. Het zal de JSON data leveren zodat het kan worden weergegeven op de pagina.
 
-
+**Vergeet wederom niet de imports!**
 
 ### Stap 8 - Index page - Teken de charts door Javascript te gebruiken
 
 #### Stap 8.1
-Open de ```Index.cshtml``` file, en vervang de inhoudt van de file met het volgende.:
+Open de ```Index.cshtml``` file, en vervang de inhoud van de file met het volgende:
+
+```csharp
     @page
-    @model ChartsDemo.Pages.IndexModel
+    @model IndexModel
     @{
         ViewData["Title"] = "Home page";
     }
@@ -201,11 +207,12 @@ Open de ```Index.cshtml``` file, en vervang de inhoudt van de file met het volge
         <p>Lets take a look at the weather!</p>
         <h1 class="display-4">This month's weather</h1>
     </div>
+```
 
-Dit zal een erg eenvoudige html pagina renderen met de heading "Welcome..."
-De applicatie zou op dit punt moeten werken. Je kan de applicatie runnen door naar het **Debug** menu te gaan en **Start Without Debugging** of door **Ctrl-F5 **. De applicatie zou nou moeten openen in je default web browser
-Het is belangrijk om de ```@page``` directive bovenaan de .cshtml te definieren. De @page directive verteld Razor dat deze .cshtml file een Razor Page representeert.
-De ```@page``` directive wordt gevolgd door een ```@model``` directive. Dit identificeert de corresponderende C# model klasse , die gelokaliseerd is in dezelfde folder van de .cshtml pagina zelf.
+Dit zal een erg eenvoudige html pagina renderen met de heading "Welcome"
+De applicatie zou op dit punt moeten werken. Je kan de applicatie runnen door naar het **Debug** menu te gaan en **Start Without Debugging**, door **Ctrl-F5** te drukken of door gewoon op de **play knop** te drukken. De applicatie zou nou moeten openen in je default web browser.
+Het is belangrijk om de ```@page``` directive bovenaan de .cshtml te zetten. De ```@page``` directive verteld Razor dat deze .cshtml file een Razor Page representeert.
+De ```@page``` directive wordt gevolgd door een ```@model``` directive. Dit identificeert de corresponderende C# model class, die gelokaliseerd is in dezelfde folder van de .cshtml pagina zelf.
 Met een ```@{}``` blok wordt server-side code toegevoegd. 
 
 #### Stap 8.2
@@ -213,11 +220,15 @@ We voegen Chart.js toe door de script tag toe te voegen aan onze razor page.
 
 ```<script src="~/js/Chart.bundle.min.js"></script>```
 
+Je page ziet er dan als volgt uit:
+![wwwroot map](\images\4.jpg)
+
 #### Stap 8.3
 
 Hierna hebben we een canvas nodig voor onze pagina. 
+Voeg onderstaande code onder de ```<div class="text-center">```.
 
-``` 
+```csharp 
 <div class="container">
     <canvas id="weatherChart" width="500" height="300"></canvas>
 </div> 
@@ -225,16 +236,11 @@ Hierna hebben we een canvas nodig voor onze pagina.
 
 #### Stap 8.4
 
-Nu kunnen we een chart creeeren. We voegen een script toe aan onze pagina. 
+Nu kunnen we een chart creëren. We voegen een script toe aan onze pagina om de chart te weergeven met de goede data. 
 
-Om  chart te creeren, moeten we de ```Chart``` class instantieren. Om dit te doen, moeten we het canvas doorgeven in de node.
-```let popCanvasName = document.getElementById("weatherChart");  ```
+Het onderstaande geeft alle code weer om een bar chart te instantieren. Voeg deze ```<script>``` tag onder de ```<div class="container">``` toe.
 
-Als je het element hebt, kan je zelf een pre-gedefinieerd chart-type of een eigen instantieren.
-
-Het onderstaande geeft alle code weer om een bar chart te instantieren. 
-
-```
+```csharp
 <script>
     // Data
     var myAmounts = [];
@@ -244,9 +250,6 @@ Het onderstaande geeft alle code weer om een bar chart te instantieren.
     function showChart() {
         myAmounts = myWeather.amountList;
         myCategories = myWeather.categoryList;
-        console.log(myWeather);
-        console.log(myAmounts);
-        console.log(myCategories);
         let popCanvasName = document.getElementById("weatherChart");
         let weatherChart = new Chart(popCanvasName, {
             type: 'bar',
@@ -318,4 +321,11 @@ Het onderstaande geeft alle code weer om een bar chart te instantieren.
     getChartData();
 </script>
 ```
-    
+
+Als je dit gedaan hebt kan je hem runnen door op de play knop te drukken.
+
+Om de chart te creëren, moeten we de ```Chart``` class instantieren. Om dit te doen, moeten we het canvas doorgeven in de node. Dit gebeurt in onderstaande regel. (Deze hoef je niet meer op te nemen in je project)
+
+```let popCanvasName = document.getElementById("weatherChart");  ```
+
+Als je het element hebt, kan je zelf een pre-gedefinieerd chart-type of een eigen instantieren.
