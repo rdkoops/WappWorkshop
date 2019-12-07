@@ -7,11 +7,15 @@ In deze workshop zullen we charts implementeren in ASP.NET Core MVC Application 
  - Windows 
  - Visual Studio 2019 Preview 
  - .NET Core SDK 3.1
- - Javascript
+ - Javascript kennis
 
-### Stap 1 - Creëer een ASP.NET Core 3.1 MVC Project**
+### Stap 1 - Creëer een ASP.NET Core 3.1 MVC Project
 
-Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en start met het creëren van een folder voor je applicatie.
+Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en navigeer naar de gewenste map door middel van:
+
+    cd [FOLDER PATH]
+
+ Start hierna met het creëren van een nieuwe folder voor je applicatie.
 
     mkdir ChartsDemo
     cd ChartsDemo
@@ -19,11 +23,10 @@ Open opdracht prompt (of gebruik de ingebouwde terminal van Visual Studio) en st
 
 Open de ChartsDemo folder in Visual Studio 2019 Preview
 
-
 ### Stap 2 - Download de Chart.js javascript file & data voor het weer
 Ga naar:  
 https://cdn.jsdelivr.net/npm/chart.js  
-Download de file doormiddel van het klikken op de rechtermuisknop en dan op opslaan als. Vervolgens plaats je dit bestand in de wwwroot van je project, js folder (creëer de folder js als je dit niet al hebt). 
+Download de file doormiddel van het klikken op de rechtermuisknop en dan op opslaan als (kies hierbij de gewenste locatie om op te slaan). Vervolgens plaats je dit bestand in de wwwroot van je project, js folder (creëer de folder js als je dit niet al hebt). 
 
 Maak een ```data``` folder aan in de wwwwroot folder. Hierna download de json data van de git repo en plaat het in dit folder locatie.  
 Ga naar:  

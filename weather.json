@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2019-12-07T11:36:18.2987726+01:00",
+    "temperatureC": -20,
+    "temperatureF": -3,
+    "summary": "Chilly"
+  },
+  {
+    "date": "2019-12-08T11:36:18.3042854+01:00",
+    "temperatureC": 38,
+    "temperatureF": 100,
+    "summary": "Freezing"
+  },
+  {
+    "date": "2019-12-09T11:36:18.3043399+01:00",
+    "temperatureC": -5,
+    "temperatureF": 24,
+    "summary": "Freezing"
+  },
+  {
+    "date": "2019-12-10T11:36:18.3043418+01:00",
+    "temperatureC": 44,
+    "temperatureF": 111,
+    "summary": "Chilly"
+  },
+  {
+    "date": "2019-12-11T11:36:18.3043421+01:00",
+    "temperatureC": -9,
+    "temperatureF": 16,
+    "summary": "Scorching"
+  },
+  {
+    "date": "2019-12-12T11:36:18.3043424+01:00",
+    "temperatureC": 22,
+    "temperatureF": 71,
+    "summary": "Chilly"
+  },
+  {
+    "date": "2019-12-13T11:36:18.3043428+01:00",
+    "temperatureC": 4,
+    "temperatureF": 39,
+    "summary": "Mild"
+  }
+]
