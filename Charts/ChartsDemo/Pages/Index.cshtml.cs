@@ -27,7 +27,6 @@ namespace ChartsDemo.Pages
         public JsonResult OnGetWeatherforecastChartData()
         {
             WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
-            Console.WriteLine($"LIJST: {WeatherforecastList}");
             var weatherChart = new CategoryChart();
             weatherChart.AmountList = new List<double>();
             weatherChart.CategoryList = new List<string>();
@@ -36,6 +35,22 @@ namespace ChartsDemo.Pages
             {
                 weatherChart.AmountList.Add(weather.TemperatureC);
                 weatherChart.CategoryList.Add(weather.Day);
+            }
+
+            return new JsonResult(weatherChart);
+        }
+
+        public JsonResult OnGetWeatherforecastTempFData()
+        {
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+            var weatherChart = new CategoryChart();
+            weatherChart.DateList = new List<DateTime>();
+            weatherChart.TempFList = new List<Double>();
+
+            foreach (var weather in WeatherforecastList)
+            {
+                weatherChart.DateList.Add(weather.Date);
+                weatherChart.TempFList.Add(weather.TemperatureF);
             }
 
             return new JsonResult(weatherChart);

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {}
+    "D:\\Repos Visual Studio\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {}
   },
   "projects": {
-    "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {
+    "D:\\Repos Visual Studio\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
+        "projectUniqueName": "D:\\Repos Visual Studio\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
         "projectName": "ChartsDemo",
-        "projectPath": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
-        "packagesPath": "C:\\Users\\nickf\\.nuget\\packages\\",
-        "outputPath": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\obj\\",
+        "projectPath": "D:\\Repos Visual Studio\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
+        "packagesPath": "C:\\Users\\lotus\\.nuget\\packages\\",
+        "outputPath": "D:\\Repos Visual Studio\\WappWorkshop\\Charts\\ChartsDemo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\nickf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lotus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,8 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.myget.org/F/miniprofiler/api/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {

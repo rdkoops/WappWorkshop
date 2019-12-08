@@ -11,5 +11,11 @@ namespace ChartsDemo.Models
 
         public List<double> AmountList { get; set; }
 
+        public List<DateTime> DateList { get; set; }
+
+        public List<double> TempFList { get; set; }
+
+
+
     }
 }
