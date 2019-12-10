@@ -1,5 +1,3 @@
 # WappWorkshop
 ## Chart demo
-
-### Charts demo
-Lorem ipsum DOLLA SET stuff stuff
+Om de charts demo te klik op charts hier boven of volg de ![link](https://github.com/Kiiwuu/WappWorkshop/tree/master/Charts)
