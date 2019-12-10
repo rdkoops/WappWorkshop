@@ -280,7 +280,7 @@ Het onderstaande geeft alle code weer om een bar chart te instantieren. Voeg dez
         myAmounts = myWeather.amountList;
         myCategories = myWeather.categoryList;
         let popCanvasName = document.getElementById("weatherChart");
-        let weatherChart = new Chart(popCanvasName, {
+        new Chart(popCanvasName, {
             type: 'bar',
             data: {
                 labels: myCategories,
