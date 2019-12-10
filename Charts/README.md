@@ -148,6 +148,32 @@ Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecast
 
 *Het kan zijn dat je een pop-up krijgt van waar je hem wilt opslaan. Het pad is als het goed is al ingevuld, je hoeft dan alleen op opslaan te klikken. Hierna krijg je waarschijnlijk een optie om het project te herladen. Kies hier voor de optie 'Reload'. Als je nu naar de map ```Controllers``` gaat zie je dat de controller is toegevoegd.*  
 
+**Let op!** In dit demo hebben wij de  ```[Route("api/[controller]")]``` verandered naar ```[Route("[controller]")]```. Er is geen reden hiervoor dus als je het laat staan zoals het is vergeet het niet toe te passen bij de rest van de endpoints.
+
+Voeg de volgende twee stukken code toe:
+```
+ [Route("[controller]")]
+    [ApiController]
+    public class WeatherforecastController : ControllerBase
+    {
+        public WeatherforecastController(JsonFileWeatherService weatherService)
+        {
+            this.WeatherService = weatherService;
+        }
+
+        public JsonFileWeatherService WeatherService { get; set; }
+
+    }
+```
+Voeg nu een nieuwe route toe:
+```
+        [HttpGet]
+        public IEnumerable<Weatherforecast> GetWeatherforecasts()
+        {
+            return WeatherService.GetWeatherforecasts();
+        }
+```
+
 ### Stap 7 - Code voor backend Index page
 
 Ga naar de map ```Pages``` en druk op het pijltje naast de ```index.cshtml```. Er verschijnt nu de ```Index.cshtml.cs``` class, dit is de code achter de ```index.cshtml``` html pagina.   
