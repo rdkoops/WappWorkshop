@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {}
+    "C:\\Users\\Ramon\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {}
   },
   "projects": {
-    "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {
+    "C:\\Users\\Ramon\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
+        "projectUniqueName": "C:\\Users\\Ramon\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
         "projectName": "ChartsDemo",
-        "projectPath": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
-        "packagesPath": "C:\\Users\\nickf\\.nuget\\packages\\",
-        "outputPath": "C:\\school\\Nots-WAPP\\WappWorkshop\\Charts\\ChartsDemo\\obj\\",
+        "projectPath": "C:\\Users\\Ramon\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\ChartsDemo.csproj",
+        "packagesPath": "C:\\Users\\Ramon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramon\\Source\\Repos\\WappWorkshop\\Charts\\ChartsDemo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\nickf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ramon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,8 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.myget.org/F/miniprofiler/api/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -73,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview2-014569\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
