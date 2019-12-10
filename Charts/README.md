@@ -358,3 +358,158 @@ Om de chart te creëren, moeten we de ```Chart``` class instantieren. Om dit te 
 ```let popCanvasName = document.getElementById("weatherChart");  ```
 
 Als je het element hebt, kan je zelf een pre-gedefinieerd chart-type of een eigen instantieren.
+
+## Extra 
+
+### Line Chart 
+Om een lijngrafiek te maken met als X-as de datum en de temperatuur in Fahrenheit als Y-as kunnen we ook Chart.js gebruiken.
+We gebruiken Moment.js om de tijd te converteren naar een geschikt format. 
+Zie de LineChart branch voor de code voor de lijngrafiek (let op Model, Pages en Services zijn allemaal aangepast voor deze data)
+Naast de basisstappen die hierboven in de tutorial zijn uitgelegd zijn deze extra stappen nodig om een lijngrafiek met data te maken:
+
+#### Stap 1 - Download het Moment.js javascript 
+Download van Moment.js via deze link https://momentjs.com/downloads/moment.min.js het ```moment.min.js``` javascript script.
+
+#### Stap 2 Creëer in het model CategoryChart nieuwe class members
+Voeg een getter en setter toe voor de DateList (die de X-as moet weergeven) en TempFList (die de Y-as moet weergeven)
+```
+namespace ChartsDemo.Models
+{
+    public class CategoryChart
+    {
+       
+        public List<DateTime> DateList { get; set; }
+
+        public List<double> TempFList { get; set; }
+
+
+
+    }
+}
+```
+
+#### Stap 3 - Code voor backend Index page
+Voeg een methode toe die backend levert voor de fetch functie die de Temperatuur data in Fahrenheit zal ophalen. 
+
+```
+ public JsonResult OnGetWeatherforecastTempFData()
+        {
+            WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
+            var weatherChart = new CategoryChart();
+            weatherChart.DateList = new List<DateTime>();
+            weatherChart.TempFList = new List<Double>();
+
+            foreach (var weather in WeatherforecastList)
+            {
+                weatherChart.DateList.Add(weather.Date);
+                weatherChart.TempFList.Add(weather.TemperatureF);
+            }
+
+            return new JsonResult(weatherChart);
+        }
+```
+#### Stap 2 -  View
+Pas de code in de ```Index.cshtml``` aan naar de volgende code
+```
+@page
+@model ChartsDemo.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<script src="~/js/moment.min.js"></script>
+<script src="~/js/Chart.bundle.min.js"></script>
+
+<div class="container">
+    <canvas id="weatherLineChart" width="500" height="300"></canvas>
+</div>
+
+<script>
+    // Data
+    var myWeatherF = [];
+
+    function showTimeLineChart() {
+        var timeFormat = 'MMM D'
+        let lineChartCanvasName = document.getElementById("weatherLineChart");
+        var weatherLineChart = new Chart(lineChartCanvasName, {
+            type: 'line',
+            data: { datasets: [{label: 'Temperature per day in Fahrenheit', data: myWeatherF }] },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        distribution: 'linear',
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date'
+                        },
+                        time: {
+                            parser: timeFormat,
+                            unit: 'day',
+                            tooltipFormat: 'll'
+                        },
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Temperature (in F)",
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    // Get data from API endpoint
+    function getLineChartData() {
+        return fetch('./Index?handler=WeatherforecastTempFData',
+            {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw Error('Response Not OK');
+                }
+            })
+            .then(function (text) {
+                try {
+                    return JSON.parse(text);
+                } catch (err) {
+                    throw Error('Method Not Found');
+                }
+            })
+            .then(function (responseJSON) {
+                var i = 0;
+                for (i = 0; i < responseJSON.dateList.length; i++) {
+
+                    myWeatherF.push({ x: new Date(responseJSON.dateList[i]), y: responseJSON.tempFList[i] });
+                }
+
+                showTimeLine
+
+
+                hart();
+            })
+    }
+
+    getLineChartData();
+</script> 
+```
+
+Bij timeformat kan je zelf het format van de datum opgeven (hier zal de data als *Dec 8* worden weergeven)
+De data moet in het json formaat [{x: 1, y:2}, {x:2, y:3}] etc. zijn.
+
+```
+ for (i = 0; i < responseJSON.dateList.length; i++) {
+
+                    myWeatherF.push({ x: new Date(responseJSON.dateList[i]), y: responseJSON.tempFList[i] });
+                }
+```
+
+De bovenstaande code zet de data in het juiste JSON format. 
