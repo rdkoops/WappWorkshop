@@ -246,7 +246,7 @@ Met een ```@{}``` blok wordt server-side code toegevoegd.
 #### Stap 8.2
 We voegen Chart.js toe door de script tag toe te voegen aan onze razor page.
 
-```<script src="~/js/Chart.bundle.min.js"></script>```
+```<script src="~/js/Chart.min.js"></script>```
 
 Je page ziet er dan als volgt uit:
 
