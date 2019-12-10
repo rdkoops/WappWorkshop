@@ -25,7 +25,7 @@ Open de ChartsDemo folder in Visual Studio 2019 Preview
 
 ### Stap 2 - Download de Chart.js javascript file & data voor het weer
 Ga naar:  
-https://cdn.jsdelivr.net/npm/chart.js 
+https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js  
 Download de file doormiddel van het klikken op de rechtermuisknop. 
 **Zorg dat het bestand ```Chart.bundle.min.js``` heet!**
 Dan op opslaan als (kies hierbij de gewenste locatie om op te slaan). Vervolgens plaats je dit bestand in de wwwroot van je project, in de js folder (creëer de folder js als je dit niet al hebt). 
