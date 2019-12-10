@@ -25,7 +25,7 @@ Open de ChartsDemo folder in Visual Studio 2019 Preview
 
 ### Stap 2 - Download de Chart.js javascript file & data voor het weer
 Ga naar:  
-https://cdn.jsdelivr.net/npm/chart.js 
+https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js  
 Download de file doormiddel van het klikken op de rechtermuisknop. 
 **Zorg dat het bestand ```Chart.bundle.min.js``` heet!**
 Dan op opslaan als (kies hierbij de gewenste locatie om op te slaan). Vervolgens plaats je dit bestand in de wwwroot van je project, in de js folder (creëer de folder js als je dit niet al hebt). 
@@ -148,6 +148,32 @@ Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecast
 
 *Het kan zijn dat je een pop-up krijgt van waar je hem wilt opslaan. Het pad is als het goed is al ingevuld, je hoeft dan alleen op opslaan te klikken. Hierna krijg je waarschijnlijk een optie om het project te herladen. Kies hier voor de optie 'Reload'. Als je nu naar de map ```Controllers``` gaat zie je dat de controller is toegevoegd.*  
 
+**Let op!** In dit demo hebben wij de  ```[Route("api/[controller]")]``` verandered naar ```[Route("[controller]")]```. Er is geen reden hiervoor dus als je het laat staan zoals het is vergeet het niet toe te passen bij de rest van de endpoints.
+
+Voeg de volgende twee stukken code toe:
+```
+ [Route("[controller]")]
+    [ApiController]
+    public class WeatherforecastController : ControllerBase
+    {
+        public WeatherforecastController(JsonFileWeatherService weatherService)
+        {
+            this.WeatherService = weatherService;
+        }
+
+        public JsonFileWeatherService WeatherService { get; set; }
+
+    }
+```
+Voeg nu een nieuwe route toe:
+```
+        [HttpGet]
+        public IEnumerable<Weatherforecast> GetWeatherforecasts()
+        {
+            return WeatherService.GetWeatherforecasts();
+        }
+```
+
 ### Stap 7 - Code voor backend Index page
 
 Ga naar de map ```Pages``` en druk op het pijltje naast de ```index.cshtml```. Er verschijnt nu de ```Index.cshtml.cs``` class, dit is de code achter de ```index.cshtml``` html pagina.   
@@ -220,7 +246,7 @@ Met een ```@{}``` blok wordt server-side code toegevoegd.
 #### Stap 8.2
 We voegen Chart.js toe door de script tag toe te voegen aan onze razor page.
 
-```<script src="~/js/Chart.bundle.min.js"></script>```
+```<script src="~/js/Chart.min.js"></script>```
 
 Je page ziet er dan als volgt uit:
 
@@ -254,7 +280,7 @@ Het onderstaande geeft alle code weer om een bar chart te instantieren. Voeg dez
         myAmounts = myWeather.amountList;
         myCategories = myWeather.categoryList;
         let popCanvasName = document.getElementById("weatherChart");
-        let weatherChart = new Chart(popCanvasName, {
+        new Chart(popCanvasName, {
             type: 'bar',
             data: {
                 labels: myCategories,
