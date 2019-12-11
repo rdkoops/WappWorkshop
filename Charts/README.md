@@ -368,11 +368,13 @@ Zie de LineChart branch voor de code voor de lijngrafiek (let op Model, Pages en
 Naast de basisstappen die hierboven in de tutorial zijn uitgelegd zijn deze extra stappen nodig om een lijngrafiek met data te maken:
 
 #### Stap 1 - Download het Moment.js javascript 
-Download van Moment.js via deze link https://momentjs.com/downloads/moment.min.js het ```moment.min.js``` javascript script.
+Download van Moment.js via deze link https://momentjs.com/downloads/moment.min.js het ```moment.min.js``` javascript script. (Doe dit op dezelfde manier als bij ```Chart.bundle.min.js```, dus rechtermuisknop > opslaan als)
+**Let erop dat het bestand ```moment.min.js``` heet**
 
 #### Stap 2 Creëer in het model CategoryChart nieuwe class members
 Voeg een getter en setter toe voor de DateList (die de X-as moet weergeven) en TempFList (die de Y-as moet weergeven)
-```
+
+```csharp
 namespace ChartsDemo.Models
 {
     public class CategoryChart
@@ -391,7 +393,7 @@ namespace ChartsDemo.Models
 #### Stap 3 - Code voor backend Index page
 Voeg een methode toe die backend levert voor de fetch functie die de Temperatuur data in Fahrenheit zal ophalen. 
 
-```
+```csharp
  public JsonResult OnGetWeatherforecastTempFData()
         {
             WeatherforecastList = WeatherService.GetWeatherforecasts().ToList<Weatherforecast>();
@@ -410,7 +412,8 @@ Voeg een methode toe die backend levert voor de fetch functie die de Temperatuur
 ```
 #### Stap 2 -  View
 Pas de code in de ```Index.cshtml``` aan naar de volgende code
-```
+
+```csharp
 @page
 @model ChartsDemo.Pages.IndexModel
 @{
@@ -505,7 +508,7 @@ Pas de code in de ```Index.cshtml``` aan naar de volgende code
 Bij timeformat kan je zelf het format van de datum opgeven (hier zal de data als *Dec 8* worden weergeven)
 De data moet in het json formaat [{x: 1, y:2}, {x:2, y:3}] etc. zijn.
 
-```
+```csharp
  for (i = 0; i < responseJSON.dateList.length; i++) {
 
                     myWeatherF.push({ x: new Date(responseJSON.dateList[i]), y: responseJSON.tempFList[i] });
