@@ -27,7 +27,7 @@ Open de ChartsDemo folder in Visual Studio 2019 Preview
 Ga naar:  
 https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js  
 Download de file doormiddel van het klikken op de rechtermuisknop. 
-**Zorg dat het bestand ```Chart.bundle.min.js``` heet!**
+**Zorg dat het bestand ```Chart.min.js``` heet!**
 Dan op opslaan als (kies hierbij de gewenste locatie om op te slaan). Vervolgens plaats je dit bestand in de wwwroot van je project, in de js folder (creëer de folder js als je dit niet al hebt). 
 
 Maak een ```data``` folder aan in de wwwwroot folder. Hierna download of clone je de repository van github. Als je de map hebt uitgepakt zie je in de hoofdmap een json file staan genaamd weather.json. Plaats deze in de data folder die je net aangemaakt hebt.  
@@ -368,7 +368,7 @@ Zie de LineChart branch voor de code voor de lijngrafiek (let op Model, Pages en
 Naast de basisstappen die hierboven in de tutorial zijn uitgelegd zijn deze extra stappen nodig om een lijngrafiek met data te maken:
 
 #### Stap 1 - Download het Moment.js javascript 
-Download van Moment.js via deze link https://momentjs.com/downloads/moment.min.js het ```moment.min.js``` javascript script. (Doe dit op dezelfde manier als bij ```Chart.bundle.min.js```, dus rechtermuisknop > opslaan als)
+Download van Moment.js via deze link https://momentjs.com/downloads/moment.min.js het ```moment.min.js``` javascript script. (Doe dit op dezelfde manier als bij ```Chart.min.js```, dus rechtermuisknop > opslaan als)
 **Let erop dat het bestand ```moment.min.js``` heet**
 
 #### Stap 2 Creëer in het model CategoryChart nieuwe class members
@@ -422,7 +422,7 @@ Pas de code in de ```Index.cshtml``` aan naar de volgende code
 
 
 <script src="~/js/moment.min.js"></script>
-<script src="~/js/Chart.bundle.min.js"></script>
+<script src="~/js/Chart.min.js"></script>
 
 <div class="container">
     <canvas id="weatherLineChart" width="500" height="300"></canvas>
