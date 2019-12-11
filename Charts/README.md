@@ -151,7 +151,7 @@ Kies voor ```API Controller - Empty``` en noem het controller ```WeatherForecast
 **Let op!** In dit demo hebben wij de  ```[Route("api/[controller]")]``` verandered naar ```[Route("[controller]")]```. Er is geen reden hiervoor dus als je het laat staan zoals het is vergeet het niet toe te passen bij de rest van de endpoints.
 
 Voeg de volgende twee stukken code toe:
-```
+```csharp
  [Route("[controller]")]
     [ApiController]
     public class WeatherforecastController : ControllerBase
@@ -166,7 +166,7 @@ Voeg de volgende twee stukken code toe:
     }
 ```
 Voeg nu een nieuwe route toe:
-```
+```csharp
         [HttpGet]
         public IEnumerable<Weatherforecast> GetWeatherforecasts()
         {
