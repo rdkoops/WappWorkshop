@@ -506,7 +506,7 @@ Pas de code in de ```Index.cshtml``` aan naar de volgende code
 ```
 
 Bij timeformat kan je zelf het format van de datum opgeven (hier zal de data als *Dec 8* worden weergeven)
-De data moet in het json formaat [{x: 1, y:2}, {x:2, y:3}] etc. zijn.
+De data moet in het json formaat ```[{x: 1, y:2}, {x:2, y:3}]``` etc. zijn.
 
 ```csharp
  for (i = 0; i < responseJSON.dateList.length; i++) {
